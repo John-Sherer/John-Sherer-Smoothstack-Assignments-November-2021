@@ -1,7 +1,8 @@
+import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
 class LineTest {
     float delta = 0.001f;
 
@@ -12,17 +13,15 @@ class LineTest {
 
     Line parallel1 = new Line(-2, -3, 0.52f, 0.88f);
     Line parallel2 = new Line(-1, -1, 1.52f, 2.88f);
-
-    Line point = new Line(5.1f, 5.1f, 5.1f, 5.1f);
     @Test
     void slopeTests() {
         assertTrue(fortyFiveDegree.getSlope() - 45.0f <  delta);
         assertTrue(horizontal.getSlope() < delta);
     }
 
-    @Test(expected = ArithmeticException.class)
+    @Test
     void InfiniteSlopeTest(){
-        ninteyDegree.getSlope();
+        assertThrows(ArithmeticException.class, () -> {ninteyDegree.getSlope();});
     }
 
     @Test
@@ -34,7 +33,9 @@ class LineTest {
     @Test
     void parallelTo() {
         assertTrue(horizontal.parallelTo(horizontal2));
-        assertTrue(parallel1.parallelTo(horizontal2));
+        assertTrue(parallel1.parallelTo(parallel2));
         assertFalse(fortyFiveDegree.parallelTo(horizontal));
     }
+
+
 }
